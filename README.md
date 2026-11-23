@@ -8,9 +8,9 @@ A responsive browser-based game companion for the crew of the interstellar scout
 ## Links
 
 - **GitHub repository:** https://github.com/ShahriarSahed/Software-engineering
-- **GitHub Pages URL (after deployment):** https://shahriarsahed.github.io/Software-engineering/
+- **Expected GitHub Pages URL:** https://shahriarsahed.github.io/Software-engineering/
 
-The repository includes a GitHub Actions workflow that runs the tests and deploys the static site. For the first deployment, open **Settings → Pages → Build and deployment** and select **GitHub Actions** as the publishing source. The workflow will then publish on pushes to `main`. The Pages site is not considered published until a deployment run succeeds.
+The application is committed and the automated test job passes. **Publication is still blocked:** GitHub Actions cannot create the Pages site because the connected GitHub integration lacks permission to enable Pages. A repository administrator must open **Settings → Pages → Build and deployment**, select **GitHub Actions** as the publishing source, and save. Then rerun the workflow. The URL above is the intended address, not a verified live deployment.
 
 ## Features
 
@@ -105,51 +105,78 @@ The three user stories originally listed as unprioritized were ordered and selec
 - (Done) As a player, I want the software to save my information (number, name, style and role), so I can use them in multiple playing sessions.
 - (Done) As a GM, I want to be able to throw a dice, so I can create a random adventure.
 
-## Sprint 2 backlog
+## Sprint 2 planning
 
-These two stories were supplied for Sprint 2 and were also implemented as additional scope:
+**Sprint goal:** complete character creation and deliver a publishable release that lets a player create a character profile with a name, style and role, keep the profile for future sessions, and use the existing player and GM tools.
+
+**Sprint end stated in the assignment:** Monday, 19 October 2026 at 10:00.
+
+**Capacity estimate:** 180 minutes (within the activity's suggested 150–225 minutes).
+
+| Planned work | Estimate |
+| --- | ---: |
+| Character name field, required input and clear feedback | 25 min |
+| Style and role selectors with the exact brief options | 20 min |
+| Save and restore the complete character profile | 30 min |
+| Validate names, style, role and number before saving | 25 min |
+| Add automated character-profile tests | 35 min |
+| Responsive layout, keyboard and screen-reader checks | 25 min |
+| Regression testing, README and release preparation | 20 min |
+| **Total** | **180 min** |
+
+**Publishable-release decision:** both supplied Sprint 2 stories are selected. Together with the existing Sprint 1 dice roller, number comparison and GM encounter generator, they complete the main player setup and game loop. The profile is stored locally in the browser; cross-device synchronisation is not part of this release.
+
+### Sprint 2 backlog
+
+The stories were placed in the sprint as **(Not started)** during planning. After implementation and verification, the final status is shown below.
 
 - (Done) As a player, I want to be able to give my character a name, because I want to be immersed into the game.
 - (Done) As a player, I want to be able to choose a style and role for my character, so I can remember them.
 
-## Daily scrum / implementation log
+**Acceptance criteria**
 
-The final statuses below reflect functionality delivered and tested. These notes summarize the implementation sequence; they are not fabricated dated stand-up minutes.
+- Character name is required, trimmed and limited to 40 characters.
+- Style is one of Alien, Android, Dangerous, Heroic, Hot-Shot, Intrepid or Savvy.
+- Role is one of Doctor, Envoy, Engineer, Explorer, Pilot, Scientist or Soldier.
+- A player can save and reload their character profile in the same browser.
+- Invalid or missing profile data is not saved as a valid character.
 
-1. **Browser shell:** created the responsive page structure and navigation. Done.
-2. **Player dice:** implemented a D6 roll, selectable approach, result display and bonus dice. Done.
-3. **Number comparison:** implemented the 2–5 number selection, strict under/over tests and matching-number Laser Feelings success. Done.
-4. **Character details:** implemented the name, style and role selectors and local profile storage. Done.
-5. **GM support:** implemented the GM D6 encounter table with six adventure hooks and complications. Done.
-6. **Verification:** ran the automated test suite and JavaScript syntax checks. All 9 automated tests passed. Done.
+## Sprint 2 daily scrum / implementation log
 
-## Sprint review
+The activity instructions describe daily scrum updates, but no dated meeting notes from class were supplied. The following is an implementation sequence and status record based on the code and tests in this repository; it is not presented as fabricated dated meeting minutes.
 
-The application delivers all Sprint 1 stories and both character-creation stories supplied for Sprint 2. A player can set up a profile, roll with Lasers or Feelings, see their successes and review recent rolls. The GM can generate an adventure hook. The GitHub Actions deployment workflow is included.
+1. **Character naming — (In progress → Done):** checked the name field, required input, trimming and 40-character limit. Saving and restoring the name works through the character profile.
+2. **Style and role — (In progress → Done):** checked both selectors against the seven styles and seven roles in the project brief.
+3. **Profile validation — (In progress → Done):** extracted validation into the game-logic module so allowed name, style, role and number values can be tested independently.
+4. **Regression tests — (In progress → Done):** extended the automated suite to cover all style and role choices and invalid character profiles.
+5. **Release preparation — (In progress → Done):** checked the application files and updated the sprint report. GitHub Pages publication remains blocked until the repository Pages source is enabled manually.
 
-**Publishing step:** configure the repository's Pages source as **GitHub Actions** under Settings → Pages. When the workflow has completed successfully, the application should be available at:
-
-https://shahriarsahed.github.io/Software-engineering/
-
-## Sprint retrospective
+## Sprint 2 review
 
 ### Completed user stories
 
-- As a GM, I want to be able to use the software in a modern web browser.
-- As a player, I want to be able to throw a dice.
-- As a player, I want to be able to set my number and compare it with the result of my dice throw.
-- As a player, I want the software to save my number, name, style and role for use in multiple sessions.
-- As a GM, I want to be able to throw a dice to create a random adventure.
-- As a player, I want to give my character a name.
-- As a player, I want to choose a style and role for my character.
+- As a player, I want to be able to give my character a name, because I want to be immersed into the game.
+- As a player, I want to be able to choose a style and role for my character, so I can remember them.
 
-### Reflection
+The character form supports both stories. It includes a required character name, the seven styles and seven roles from the brief, a player number, profile saving and profile restoration. Validation is shared with the game-logic module and covered by automated tests.
 
-**What went well:** using plain HTML, CSS and JavaScript kept the application small and easy to publish. Separating the dice rules into a module made them easy to test. Character saving and GM prompts add useful session support without requiring a server.
+**Verification:** the automated test suite now contains 12 tests covering D6 outcomes, both approaches, matching-number Laser Feelings, bonus dice, GM encounters, the allowed character choices and invalid profile data. All 12 tests must pass in the latest Actions run. The Pages deployment step is separate and has not succeeded yet.
 
-**What could be improved:** profiles are stored only in the current browser, not shared between players or devices. Future work could add shared sessions, ship information, adventure notes and more GM tools. End-to-end testing across browsers and assistive technologies would also improve confidence.
+**Application URL:** https://shahriarsahed.github.io/Software-engineering/
 
-**AI use:** an AI language model assisted with drafting the implementation, tests and documentation. The student should review the code and understand it before presenting the work. See [AI-USE.md](AI-USE.md).
+**Publication status:** this is the intended GitHub Pages URL, but it is not yet confirmed live. The last deployment attempt failed because GitHub rejected the workflow's request to enable Pages (Resource not accessible by integration). A repository administrator must enable Pages with **Settings → Pages → Build and deployment → GitHub Actions**, save, and rerun the workflow before submitting this as a published application.
+
+## Sprint 2 retrospective
+
+**What went well:** the existing project already had the character form and browser-local profile storage. Extracting profile validation made its rules easier to test without opening the browser. The extra regression tests now protect the exact character options from the brief.
+
+**What could be improved:** profile data is local to one browser and is not shared with other players. The next iteration could add a shared session, GM-managed crew list, export/import and more browser-level end-to-end checks.
+
+**Release limitation:** the code and tests are committed, but GitHub Pages has not published the site because the repository's Pages feature must be enabled by an administrator. The intended URL is documented above but must not be represented as live until a successful deployment is visible in GitHub Actions.
+
+**Timing and reporting note:** the stated Sprint 2 end date (19 October 2026) has passed. This README was updated on 23 November 2026 based on the current repository state. The implementation log is a status summary, not a claim that dated daily scrum meetings occurred on particular days.
+
+**AI use:** an AI language model assisted with the implementation, tests and documentation. Review the code and be prepared to explain it before presenting the work. See [AI-USE.md](AI-USE.md).
 
 ## Data dictionary
 

@@ -1,4 +1,4 @@
-import { STYLES, ROLES, rollPlayerDice, generateEncounter } from './game-logic.js';
+import { STYLES, ROLES, isValidCharacterProfile, rollPlayerDice, generateEncounter } from './game-logic.js';
 
 const PROFILE_KEY = 'raptor-crew-profile-v1';
 const DEFAULT_PROFILE = Object.freeze({ name: 'Jim Powers', style: 'Alien', role: 'Explorer', number: 3 });
@@ -25,15 +25,7 @@ function setStatus(message, type = '') {
 }
 
 function isValidProfile(value) {
-  return value
-    && typeof value.name === 'string'
-    && value.name.trim().length > 0
-    && value.name.trim().length <= 40
-    && STYLES.includes(value.style)
-    && ROLES.includes(value.role)
-    && Number.isInteger(value.number)
-    && value.number >= 2
-    && value.number <= 5;
+  return isValidCharacterProfile(value);
 }
 
 function populateProfile(profile) {

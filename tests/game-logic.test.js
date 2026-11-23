@@ -4,6 +4,9 @@ import {
   ENCOUNTERS,
   encounterForRoll,
   generateEncounter,
+  isValidCharacterProfile,
+  ROLES,
+  STYLES,
   rollD6,
   rollPlayerDice
 } from '../game-logic.js';
@@ -77,4 +80,30 @@ test('generateEncounter uses its injected random source', () => {
   const encounter = generateEncounter(() => 5.5 / 6);
   assert.equal(encounter.roll, 6);
   assert.equal(encounter.title, ENCOUNTERS[5].title);
+});
+
+
+test('character choices contain the seven styles and seven roles from the brief', () => {
+  assert.deepEqual(STYLES, ['Alien', 'Android', 'Dangerous', 'Heroic', 'Hot-Shot', 'Intrepid', 'Savvy']);
+  assert.deepEqual(ROLES, ['Doctor', 'Envoy', 'Engineer', 'Explorer', 'Pilot', 'Scientist', 'Soldier']);
+});
+
+test('valid character profile accepts a trimmed name and an allowed style, role and number', () => {
+  assert.equal(isValidCharacterProfile({
+    name: '  Jim Powers  ',
+    style: 'Heroic',
+    role: 'Pilot',
+    number: 3
+  }), true);
+});
+
+test('character profile validation rejects missing or invalid character data', () => {
+  const valid = { name: 'Jim Powers', style: 'Alien', role: 'Explorer', number: 3 };
+  assert.equal(isValidCharacterProfile({ ...valid, name: '   ' }), false);
+  assert.equal(isValidCharacterProfile({ ...valid, name: 'x'.repeat(41) }), false);
+  assert.equal(isValidCharacterProfile({ ...valid, style: 'Wizard' }), false);
+  assert.equal(isValidCharacterProfile({ ...valid, role: 'King' }), false);
+  assert.equal(isValidCharacterProfile({ ...valid, number: 1 }), false);
+  assert.equal(isValidCharacterProfile({ ...valid, number: 6 }), false);
+  assert.equal(isValidCharacterProfile(null), false);
 });

@@ -6,6 +6,21 @@ export const ROLES = Object.freeze([
   'Doctor', 'Envoy', 'Engineer', 'Explorer', 'Pilot', 'Scientist', 'Soldier'
 ]);
 
+/** Validate the complete character profile accepted by the crew form. */
+export function isValidCharacterProfile(profile) {
+  return Boolean(
+    profile
+    && typeof profile.name === 'string'
+    && profile.name.trim().length > 0
+    && profile.name.trim().length <= 40
+    && STYLES.includes(profile.style)
+    && ROLES.includes(profile.role)
+    && Number.isInteger(profile.number)
+    && profile.number >= 2
+    && profile.number <= 5
+  );
+}
+
 export const ENCOUNTERS = Object.freeze([
   Object.freeze({
     title: 'A silent distress beacon',
