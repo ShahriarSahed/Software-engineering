@@ -128,7 +128,12 @@ The three user stories originally listed as unprioritized were ordered and selec
 
 ### Sprint 2 backlog
 
-The stories were placed in the sprint as **(Not started)** during planning. After implementation and verification, the final status is shown below.
+**Planning snapshot (initial statuses):**
+
+- (Not started) As a player, I want to be able to give my character a name, because I want to be immersed into the game.
+- (Not started) As a player, I want to be able to choose a style and role for my character, so I can remember them.
+
+**Final Sprint 2 backlog status after implementation and verification:**
 
 - (Done) As a player, I want to be able to give my character a name, because I want to be immersed into the game.
 - (Done) As a player, I want to be able to choose a style and role for my character, so I can remember them.
@@ -160,7 +165,7 @@ The activity instructions describe daily scrum updates, but no dated meeting not
 
 The character form supports both stories. It includes a required character name, the seven styles and seven roles from the brief, a player number, profile saving and profile restoration. Validation is shared with the game-logic module and covered by automated tests.
 
-**Verification:** the automated test suite now contains 12 tests covering D6 outcomes, both approaches, matching-number Laser Feelings, bonus dice, GM encounters, the allowed character choices and invalid profile data. All 12 tests must pass in the latest Actions run. The Pages deployment step is separate and has not succeeded yet.
+**Verification:** the automated test suite now contains 12 tests covering D6 outcomes, both approaches, matching-number Laser Feelings, bonus dice, GM encounters, the allowed character choices and invalid profile data. The latest GitHub Actions test step reports 12 passed and 0 failed. The Pages deployment step is separate and has not succeeded yet.
 
 **Application URL:** https://shahriarsahed.github.io/Software-engineering/
 
