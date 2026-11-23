@@ -1,0 +1,10 @@
+{
+  "name": "raptor-crew-console",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A browser-based Lasers & Feelings companion for the crew of the Raptor.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

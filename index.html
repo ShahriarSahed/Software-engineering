@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1220">
+  <meta name="description" content="A lightweight Lasers & Feelings game console for the crew of the Raptor.">
+  <title>Raptor Crew Console | Lasers &amp; Feelings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Raptor Crew Console home">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="brand-copy"><strong>RAPTOR</strong><small>CREW CONSOLE</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#crew">Crew profile</a>
+      <a href="#player">Player dice</a>
+      <a href="#gm">GM console</a>
+    </nav>
+    <div class="system-state"><span class="state-dot"></span><span>ALL SYSTEMS NOMINAL</span></div>
+  </header>
+
+  <main id="top" class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> INTERSTELLAR SCOUT SHIP · SFS RAPTOR</p>
+        <h1 id="page-title">Your crew.<br><span>Your next adventure.</span></h1>
+        <p class="intro-text">Captain Darcy is in the medical pod. The ship is yours. Set up your character, roll the dice and find out what waits beyond the next jump.</p>
+      </div>
+      <div class="ship-card" aria-label="Raptor ship status">
+        <div class="ship-card-top"><span>VESSEL STATUS</span><span class="ship-card-code">R-01</span></div>
+        <div class="ship-illustration" aria-hidden="true">
+          <svg viewBox="0 0 240 145" role="img" aria-label="A simple line illustration of a spacecraft">
+            <path d="M120 12 145 83 120 72 95 83 120 12Z" />
+            <path d="M95 83 54 111 104 101 120 72 136 101 186 111 145 83" />
+            <path d="M104 101 99 126 120 112 141 126 136 101" />
+            <path d="M109 91h22M120 20v41" />
+            <circle cx="120" cy="84" r="5" />
+            <path d="M82 43 52 54M158 43l30 11M65 76l-28 5M175 76l28 5" />
+          </svg>
+        </div>
+        <div class="ship-card-bottom"><span>CAPTAIN</span><strong>Darcy · Medical pod</strong><span class="pod-status">RECOVERING</span></div>
+      </div>
+    </section>
+
+    <div class="section-heading">
+      <div><p class="eyebrow">01 / CREW SETUP</p><h2>Character profile</h2></div>
+      <p class="section-note">Your profile is saved in this browser.</p>
+    </div>
+
+    <section class="main-grid" aria-label="Crew and dice controls">
+      <article id="crew" class="panel profile-panel">
+        <div class="panel-heading">
+          <div class="panel-icon profile-icon" aria-hidden="true">✦</div>
+          <div><p class="panel-kicker">CREW DATABASE</p><h3>Who are you?</h3></div>
+          <span class="panel-index">01</span>
+        </div>
+        <form id="profile-form" novalidate>
+          <div class="field-group">
+            <label for="character-name">Character name</label>
+            <input id="character-name" name="name" type="text" maxlength="40" placeholder="e.g. Jim Powers" autocomplete="off" required>
+          </div>
+          <div class="field-group">
+            <label for="character-style">Style</label>
+            <select id="character-style" name="style">
+              <option value="Alien">Alien</option>
+              <option value="Android">Android</option>
+              <option value="Dangerous">Dangerous</option>
+              <option value="Heroic">Heroic</option>
+              <option value="Hot-Shot">Hot-Shot</option>
+              <option value="Intrepid">Intrepid</option>
+              <option value="Savvy">Savvy</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="character-role">Role</label>
+            <select id="character-role" name="role">
+              <option value="Doctor">Doctor</option>
+              <option value="Envoy">Envoy</option>
+              <option value="Engineer">Engineer</option>
+              <option value="Explorer">Explorer</option>
+              <option value="Pilot">Pilot</option>
+              <option value="Scientist">Scientist</option>
+              <option value="Soldier">Soldier</option>
+            </select>
+          </div>
+          <div class="field-group number-field">
+            <div class="number-label-row"><label for="character-number">Your number</label><output id="number-output" for="character-number">3</output></div>
+            <input id="character-number" name="number" type="range" min="2" max="5" step="1" value="3">
+            <div class="range-scale" aria-hidden="true"><span>2 · FEELINGS</span><span>5 · LASERS</span></div>
+            <p class="field-hint">A higher number favours Lasers; a lower number favours Feelings.</p>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit"><span aria-hidden="true">✓</span> Save character</button>
+            <button class="button button-quiet" id="clear-profile" type="button">Clear</button>
+          </div>
+          <p id="profile-status" class="inline-status" role="status" aria-live="polite">Profile not saved yet.</p>
+        </form>
+      </article>
+
+      <article id="player" class="panel dice-panel">
+        <div class="panel-heading">
+          <div class="panel-icon dice-icon" aria-hidden="true">⚄</div>
+          <div><p class="panel-kicker">PLAYER CONSOLE</p><h3>Make your move</h3></div>
+          <span class="panel-index">02</span>
+        </div>
+        <div class="roll-context"><span class="context-label">ROLLING FOR</span><strong id="rolling-as">Crew member · Number 3</strong></div>
+        <fieldset class="approach-fieldset">
+          <legend>Choose your approach</legend>
+          <div class="approach-switch">
+            <label class="approach-option lasers-option"><input type="radio" name="approach" value="lasers" checked><span><b>LASERS</b><small>Logic · Science · Tech</small></span></label>
+            <label class="approach-option feelings-option"><input type="radio" name="approach" value="feelings"><span><b>FEELINGS</b><small>Instinct · Rapport · Passion</small></span></label>
+          </div>
+        </fieldset>
+        <div class="bonus-row">
+          <label class="check-option"><input id="prepared" type="checkbox"><span class="custom-check"></span><span><strong>Prepared</strong><small>+1 die</small></span></label>
+          <label class="check-option"><input id="expert" type="checkbox"><span class="custom-check"></span><span><strong>Expert</strong><small>+1 die</small></span></label>
+        </div>
+        <button id="player-roll" class="button button-roll" type="button"><span class="button-roll-symbol" aria-hidden="true">⚄</span> Roll dice <span class="button-shortcut">D6</span></button>
+        <section id="player-result" class="result-card" aria-live="polite" aria-atomic="true">
+          <div class="result-placeholder"><span class="placeholder-die" aria-hidden="true">?</span><div><strong>Awaiting your roll</strong><p>Your result will appear here.</p></div></div>
+        </section>
+        <div class="rules-footnote"><span class="rules-mark" aria-hidden="true">i</span><p><strong>Quick rules:</strong> Lasers succeed below your number. Feelings succeed above it. Matching your number triggers Laser Feelings and a special insight.</p></div>
+      </article>
+    </section>
+
+    <section id="gm" class="gm-section">
+      <div class="section-heading gm-heading">
+        <div><p class="eyebrow">02 / GAME MASTER</p><h2>Mission generator</h2></div>
+        <p class="section-note">Roll a D6 to discover what the Raptor encounters.</p>
+      </div>
+      <article class="panel gm-panel">
+        <div class="gm-copy"><div class="panel-icon gm-icon" aria-hidden="true">✧</div><div><p class="panel-kicker">GM CONSOLE · RANDOM ENCOUNTER</p><h3>What’s out there?</h3><p>Let chance introduce a new problem for your crew to solve.</p></div></div>
+        <button id="gm-roll" class="button button-primary gm-button" type="button"><span aria-hidden="true">⚄</span> Roll a GM D6</button>
+        <div id="gm-result" class="gm-result" aria-live="polite" aria-atomic="true"><span class="gm-roll-number">—</span><div><p class="gm-result-kicker">NEXT ENCOUNTER</p><strong>Space is waiting.</strong><p>Roll the die to generate an adventure hook.</p></div></div>
+      </article>
+    </section>
+
+    <section class="bottom-grid" aria-label="Game reference and roll history">
+      <article class="panel reference-panel">
+        <div class="small-panel-heading"><p class="panel-kicker">AT A GLANCE</p><h3>Roll outcomes</h3></div>
+        <div class="outcome-list">
+          <div><span class="outcome-count">0</span><span><strong>Failure</strong><small>Things get worse.</small></span></div>
+          <div><span class="outcome-count">1</span><span><strong>Partial success</strong><small>You do it, with a cost.</small></span></div>
+          <div><span class="outcome-count">2</span><span><strong>Success</strong><small>You do it well.</small></span></div>
+          <div><span class="outcome-count">3+</span><span><strong>Critical success</strong><small>Gain an extra effect.</small></span></div>
+        </div>
+      </article>
+      <article class="panel history-panel">
+        <div class="small-panel-heading history-heading"><div><p class="panel-kicker">THIS SESSION</p><h3>Recent rolls</h3></div><button id="clear-history" class="text-button" type="button">Clear history</button></div>
+        <ol id="roll-history" class="history-list"><li class="history-empty">Your dice history will appear here.</li></ol>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>RAPTOR CREW CONSOLE <span class="footer-divider">/</span> LASERS &amp; FEELINGS</span>
+      <span>Made for the crew, wherever the mission leads.</span>
+    </footer>
+  </main>
+</body>
+</html>
